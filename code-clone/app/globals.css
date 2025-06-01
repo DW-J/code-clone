@@ -1,26 +1,140 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --foreground-rgb: 255, 255, 255;
+  --background-rgb: 0, 0, 0;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@layer base {
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* 스크롤바 스타일링 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* 헤더 스타일링 */
+.header {
+  @apply fixed left-0 w-full z-50;
+  background-color: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(4px);
+}
+
+.header-top {
+  @apply top-0;
+}
+
+.header-bottom {
+  @apply bottom-0;
+}
+
+/* 네비게이션 스타일링 */
+.nav {
+  @apply flex flex-row justify-between items-center h-16;
+}
+
+.logo {
+  @apply flex-shrink-0 flex items-center;
+}
+
+.logo-wrapper {
+  @apply bg-white p-2 rounded-lg;
+}
+
+.default-logo {
+  @apply w-10 h-10 rounded-lg;
+  background: linear-gradient(to right, #3b82f6, #a855f7);
+}
+
+/* 메뉴 스타일링 */
+.menu-container {
+  @apply flex flex-wrap justify-end items-center gap-2;
+}
+
+.menu-wrapper {
+  @apply flex gap-1 p-1 px-2 rounded-full;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+}
+
+.menu-item {
+  @apply px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200;
+}
+
+.menu-item-active {
+  @apply bg-white text-blue-600 shadow-sm;
+}
+
+.menu-item-inactive {
+  @apply text-white hover:text-blue-100 hover:bg-white/10;
+}
+
+/* Hero Section 스타일링 */
+.hero-section {
+  @apply relative w-full h-screen bg-black overflow-hidden;
+}
+
+.hero-gradient {
+  @apply absolute inset-0 bg-gradient-to-br from-purple-900/20 to-black;
+}
+
+.hero-content {
+  @apply relative z-10 flex items-center justify-center w-full h-full;
+}
+
+.hero-container {
+  @apply container mx-auto px-4;
+}
+
+.hero-text-wrapper {
+  @apply max-w-5xl mx-auto text-center;
+}
+
+.hero-subtitle {
+  @apply mb-4 text-pink-600 text-xl md:text-2xl font-medium;
+}
+
+.hero-title {
+  @apply text-3xl md:text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight;
+}
+
+.hero-decoration {
+  @apply absolute w-64 h-64 rounded-full blur-3xl;
+}
+
+.hero-decoration-1 {
+  @apply -bottom-32 -left-32 bg-pink-500/10;
+}
+
+.hero-decoration-2 {
+  @apply -top-32 -right-32 bg-purple-500/10;
 }
