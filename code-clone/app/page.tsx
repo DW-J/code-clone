@@ -1,103 +1,166 @@
-import Image from "next/image";
+import HeroSection from '@/components/HeroSection';
+import LogoSlide from '@/components/LogoSlide';
+import PictureSlide from '@/components/PictureSlide';
+import TimeLine from '@/components/TimeLine';
+import LandingPage from '@/components/LandingPage';
+import Header from '@/components/Header';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const timelineItems = [
+    {
+      date: '25.03.10 - 25.04.04',
+      title: '혁신 스타트업 모집',
+      icon: (
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      )
+    },
+    {
+      date: '25.04.07 - 25.04.16',
+      title: '협업 제안 스타트업 1차 검토,\n결과 안내 및 일정 조율\n(각 부서 관련 분야 개별 검토)',
+      icon: (
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      )
+    },
+    {
+      date: '25.04.17',
+      title: '대기업-스타트업 매칭 행사\n* 일정에 따라 변동 가능',
+      icon: (
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+      )
+    },
+    {
+      date: 'AFTER MEET UP',
+      title: '1:1 심층 비즈니스 매칭 및\n사업 협력 여부 검토',
+      icon: (
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+      )
+    },
+    {
+      date: 'AFTER MEET UP',
+      title: '사업 협력 대상 선정 및 진행\n(기술검증, 협업모델 개발 등)',
+      icon: (
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+      )
+    }
+  ];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+  const landingPageButtons = [
+    {
+      title: "상시모집",
+      subtitle: "스타트업 협업제안",
+      href: "#",
+      gradientFrom: "pink-600",
+      gradientTo: "pink-500",
+      hoverGradientFrom: "pink-500",
+      hoverGradientTo: "pink-400"
+    },
+    {
+      title: "상시모집",
+      subtitle: "대중견기업 협업제안",
+      href: "#",
+      gradientFrom: "blue-600",
+      gradientTo: "blue-500",
+      hoverGradientFrom: "blue-500",
+      hoverGradientTo: "blue-400"
+    }
+  ];
+
+  const headerConfig = {
+    logo: {
+      src: "/logo.png",
+      alt: "Logo",
+      width: 120,
+      height: 50
+    },
+    menuItems: [
+      { label: "HOME", href: "#hero" },
+      { label: "PARTNERS", href: "#partners" },
+      { label: "PORTFOLIO", href: "#portfolio" },
+      { label: "TIMELINE", href: "#timeline" },
+      { label: "CONTACT", href: "#landing" }
+    ],
+    stickyClassName: "bg-black/80 backdrop-blur-sm",
+    nonStickyClassName: "bg-transparent",
+    mobileMenuBgColor: "bg-black/95",
+    showBorder: true
+  };
+
+  const heroConfig = {
+    title: "차원이 다른 오픈 이노베이션\\n스타트업과 함께 성장합니다.",
+    subtitle: "혁신적인 스타트업과 함께 성장하는 플랫폼",
+    backgroundImage: "/hero-bg.jpg",
+    overlayColor: "bg-black/60",
+    buttonText: "시작하기",
+    buttonLink: "#partners",
+    showScrollIndicator: true
+  };
+
+  const logoSlideConfig = {
+    title: "협력기관",
+    logos: [
+      { src: "/logo1.png", alt: "Partner 1", width: 150, height: 60 },
+      { src: "/logo2.png", alt: "Partner 2", width: 150, height: 60 },
+      { src: "/logo3.png", alt: "Partner 3", width: 150, height: 60 },
+      { src: "/logo4.png", alt: "Partner 4", width: 150, height: 60 },
+      { src: "/logo5.png", alt: "Partner 5", width: 150, height: 60 }
+    ],
+    backgroundColor: "bg-black",
+    slideSpeed: 30,
+    reverseMiddleRow: true
+  };
+
+  const pictureSlideConfig = {
+    slides: [
+      {
+        date: '20xx.xx',
+        category: '카테고리리1',
+        title: '활동제목1',
+        description: '활동내용1',
+        imageSrc: '/slide1.jpg',
+        youtubeUrl: 'https://youtube.com'
+      },
+      {
+        date: '20xx.xx',
+        category: '카테고리리2',
+        title: '활동제목2',
+        description: '활동내용2',
+        imageSrc: '/slide2.jpg'
+      },
+      {
+        date: '20xx.xx',
+        category: '카테고리리3',
+        title: '활동제목3',
+        description: '활동내용3',
+        imageSrc: '/slide3.jpg'
+      }
+    ],
+    backgroundColor: "bg-black",
+    transitionDuration: 500
+  };
+
+  return (
+    <div className="relative">
+      <Header {...headerConfig} />
+      <main>
+        <HeroSection {...heroConfig} />
+        <LogoSlide {...logoSlideConfig} />
+        <PictureSlide {...pictureSlideConfig} />
+        <TimeLine 
+          items={timelineItems}
+          title="모집일정"
+          containerClassName="bg-gradient-to-b from-black to-green-900"
+          activeItemBorderColor="border-white"
+          inactiveItemBorderColor="border-white/30"
+        />
+        <LandingPage 
+          id="landing"
+          mainTitle="서울창조경제혁신센터 S.Stage는"
+          subTitle="당신을 기다리고 있습니다."
+          buttons={landingPageButtons}
+          backgroundClassName="bg-gradient-to-br from-black via-purple-900 to-blue-900"
+          diagonalLineColor="rgba(255,255,255,0.1)"
+        />
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
