@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 
 interface ButtonProps {
   title: string;
@@ -20,16 +21,17 @@ interface LandingPageProps {
 }
 
 const Button = ({ title, subtitle, href, gradientFrom, gradientTo, hoverGradientFrom, hoverGradientTo }: ButtonProps) => (
-  <a 
+  <Link 
     href={href} 
-    className={`group relative overflow-hidden rounded-lg bg-gradient-to-r from-${gradientFrom} to-${gradientTo} px-8 py-6 w-72 transition-transform hover:scale-105`}
+    className={`group relative overflow-hidden rounded-lg bg-gradient-to-r from-${gradientFrom} to-${gradientTo} px-8 py-6 w-72 transition-transform hover:scale-105 block no-underline`}
+    scroll={false}
   >
     <div className={`absolute inset-0 bg-gradient-to-r from-${hoverGradientFrom} to-${hoverGradientTo} transform translate-x-full group-hover:translate-x-0 transition-transform duration-300`} />
     <div className="relative z-10">
       <h3 className="text-2xl font-bold text-white text-center mb-2">{title}</h3>
       <p className="text-white text-center">{subtitle}</p>
     </div>
-  </a>
+  </Link>
 );
 
 export default function LandingPage({
@@ -40,7 +42,7 @@ export default function LandingPage({
     {
       title: "상시모집",
       subtitle: "스타트업 협업제안",
-      href: "#",
+      href: "/recruitment",
       gradientFrom: "pink-600",
       gradientTo: "pink-500",
       hoverGradientFrom: "pink-500",
@@ -49,7 +51,7 @@ export default function LandingPage({
     {
       title: "상시모집",
       subtitle: "대중견기업 협업제안",
-      href: "#",
+      href: "/enterprise",
       gradientFrom: "blue-600",
       gradientTo: "blue-500",
       hoverGradientFrom: "blue-500",

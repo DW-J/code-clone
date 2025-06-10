@@ -48,7 +48,7 @@ export default function Home() {
     {
       title: "상시모집",
       subtitle: "스타트업 협업제안",
-      href: "#",
+      href: "/recruitment",
       gradientFrom: "pink-600",
       gradientTo: "pink-500",
       hoverGradientFrom: "pink-500",
@@ -57,7 +57,7 @@ export default function Home() {
     {
       title: "상시모집",
       subtitle: "대중견기업 협업제안",
-      href: "#",
+      href: "/enterprise",
       gradientFrom: "blue-600",
       gradientTo: "blue-500",
       hoverGradientFrom: "blue-500",
@@ -97,13 +97,6 @@ export default function Home() {
 
   const logoSlideConfig = {
     title: "협력기관",
-    logos: [
-      { src: "/logo1.png", alt: "Partner 1", width: 150, height: 60 },
-      { src: "/logo2.png", alt: "Partner 2", width: 150, height: 60 },
-      { src: "/logo3.png", alt: "Partner 3", width: 150, height: 60 },
-      { src: "/logo4.png", alt: "Partner 4", width: 150, height: 60 },
-      { src: "/logo5.png", alt: "Partner 5", width: 150, height: 60 }
-    ],
     backgroundColor: "bg-black",
     slideSpeed: 30,
     reverseMiddleRow: true
@@ -116,7 +109,7 @@ export default function Home() {
         category: '카테고리리1',
         title: '활동제목1',
         description: '활동내용1',
-        imageSrc: '/slide1.jpg',
+        imageSrc: 'https://picsum.photos/800/600?random=1',
         youtubeUrl: 'https://youtube.com'
       },
       {
@@ -124,14 +117,14 @@ export default function Home() {
         category: '카테고리리2',
         title: '활동제목2',
         description: '활동내용2',
-        imageSrc: '/slide2.jpg'
+        imageSrc: 'https://picsum.photos/800/600?random=2'
       },
       {
         date: '20xx.xx',
         category: '카테고리리3',
         title: '활동제목3',
         description: '활동내용3',
-        imageSrc: '/slide3.jpg'
+        imageSrc: 'https://picsum.photos/800/600?random=3'
       }
     ],
     backgroundColor: "bg-black",
