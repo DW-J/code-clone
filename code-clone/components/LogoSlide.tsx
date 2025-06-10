@@ -1,18 +1,17 @@
 'use client';
 import Image from 'next/image';
-import { useMemo } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 
-interface Logo {
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
+interface Partner {
+  id: number;
+  name: string;
+  imageUrl: string;
+  websiteUrl?: string;
 }
 
 interface LogoSlideProps {
   id?: string;
   title?: string;
-  logos: Logo[];
   backgroundColor?: string;
   slideSpeed?: number;
   reverseMiddleRow?: boolean;
@@ -22,39 +21,77 @@ interface LogoSlideProps {
 export default function LogoSlide({
   id = "partners",
   title = "협력기관",
-  logos = [],
   backgroundColor = "bg-black",
   slideSpeed = 30,
   reverseMiddleRow = true,
   logoClassName = "grayscale opacity-50 hover:grayscale-0 hover:opacity-100"
 }: LogoSlideProps) {
+  const [partners, setPartners] = useState<Partner[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPartners = async () => {
+      try {
+        const response = await fetch('/api/partners');
+        if (!response.ok) throw new Error('Failed to fetch partners');
+        const data = await response.json();
+        setPartners(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load partners');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPartners();
+  }, []);
+
   // 로고 배열 복제를 메모이제이션
-  const duplicatedLogos = useMemo(() => [...logos, ...logos], [logos]);
+  const duplicatedPartners = useMemo(() => [...partners, ...partners], [partners]);
 
   // 애니메이션 스타일을 동적으로 생성
   const slideStyle = useMemo(() => ({
     animationDuration: `${slideSpeed}s`
   }), [slideSpeed]);
 
+  if (isLoading) return null;
+  if (error) return null;
+  if (partners.length === 0) return null;
+
   const renderLogoRow = (direction: 'left' | 'right') => (
-    <div className="relative">
+    <div className="relative w-full overflow-hidden">
       <div 
-        className={`flex ${direction === 'left' ? 'animate-slideLeft' : 'animate-slideRight'}`}
+        className={`flex justify-center items-center ${direction === 'left' ? 'animate-slideLeft' : 'animate-slideRight'}`}
         style={slideStyle}
       >
-        {duplicatedLogos.map((logo, index) => (
+        {duplicatedPartners.map((partner, index) => (
           <div
-            key={`${logo.src}-${index}`}
-            className={`mx-8 flex items-center justify-center ${logoClassName} transition-all duration-300`}
+            key={`${partner.id}-${index}`}
+            className={`mx-8 flex items-center justify-center min-w-[150px] ${logoClassName} transition-all duration-300`}
           >
-            <Image
-              src={logo.src}
-              alt={logo.alt}
-              width={logo.width}
-              height={logo.height}
-              className="max-w-[150px] h-auto"
-              loading="lazy"
-            />
+            {partner.websiteUrl ? (
+              <a href={partner.websiteUrl} target="_blank" rel="noopener noreferrer">
+                <Image
+                  src={partner.imageUrl}
+                  alt={partner.name}
+                  width={150}
+                  height={80}
+                  className="max-w-[150px] h-auto"
+                  loading="lazy"
+                  unoptimized
+                />
+              </a>
+            ) : (
+              <Image
+                src={partner.imageUrl}
+                alt={partner.name}
+                width={150}
+                height={80}
+                className="max-w-[150px] h-auto"
+                loading="lazy"
+              />
+            )}
           </div>
         ))}
       </div>
@@ -62,22 +99,14 @@ export default function LogoSlide({
   );
 
   return (
-    <section id={id} className={`${backgroundColor} py-20 overflow-hidden`}>
-      <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-4xl md:text-5xl text-white font-bold text-center mb-16">
+    <section id={id} className={`py-20 ${backgroundColor} overflow-hidden`}>
+      <div className="container mx-auto px-4 max-w-7xl">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-16">
           {title}
         </h2>
-
-        {/* 첫 번째 줄 - 왼쪽으로 이동 */}
-        {renderLogoRow('left')}
-
-        {/* 두 번째 줄 - 방향 선택 가능 */}
-        <div className="mt-8">
-          {renderLogoRow(reverseMiddleRow ? 'right' : 'left')}
-        </div>
-
-        {/* 세 번째 줄 - 왼쪽으로 이동 */}
-        <div className="mt-8">
+        <div className="space-y-16 w-full">
+          {renderLogoRow('left')}
+          {reverseMiddleRow && renderLogoRow('right')}
           {renderLogoRow('left')}
         </div>
       </div>

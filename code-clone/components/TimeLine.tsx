@@ -59,10 +59,10 @@ export default function TimeLine({
               <div key={index} className="flex items-center w-full">
                 <div className="w-full md:w-full">
                   <div 
-                    className={`h-[320px] p-4 rounded-lg transition-all duration-500 border flex flex-col justify-between ${
+                    className={`h-[320px] p-4 rounded-lg transition-all duration-500 border-4 ${
                       activeIndex === index 
-                        ? `${activeItemBorderColor} border-4` 
-                        : `${inactiveItemBorderColor} border`
+                        ? activeItemBorderColor
+                        : inactiveItemBorderColor
                     }`}
                   >
                     <div className="flex flex-col items-center h-full">

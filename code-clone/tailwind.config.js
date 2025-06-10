@@ -10,10 +10,10 @@ module.exports = {
       keyframes: {
         slideLeft: {
           '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(-50%)' }
+          '100%': { transform: 'translateX(calc(-50% - 2rem))' }
         },
         slideRight: {
-          '0%': { transform: 'translateX(-50%)' },
+          '0%': { transform: 'translateX(calc(-50% - 2rem))' },
           '100%': { transform: 'translateX(0)' }
         }
       },
